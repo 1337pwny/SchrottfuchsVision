@@ -4,13 +4,13 @@ import numpy as np
 from classes.TemplateClass import TemplateClass
 
 class BasicSign:
-    def __init__(self, resizeStages, message, templateImage):
-        self.threshold = 0.29
+    def __init__(self, resizeStages, message, templateImage, threshold, name):
+        self.threshold = threshold
         self.message = message
         self.templateFile = templateImage
         self.templateList = []
         # Converting the image
-        print("Processing template BasicSignRound")
+        print("Processing template "+name)
         template = cv2.imread(self.templateFile)
         template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
         # Resizing template and saving as list
