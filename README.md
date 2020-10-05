@@ -14,5 +14,10 @@ Now its time to add multithreading to the shit. And the it will hopefully run fa
 you need to install python3, numpy, imlib and opencv
 pip3 install numpy imlib opencv-python
 
+## Running
+Basically you just need to put your assets (jpg of a streetsign and a jpg of the shape of the sign plus a video into the asset folder and configure the filepaths in the main.py
+
+then you can simply run the main.py. You may also want to change the threshold parameters in the main.py depending on your assets.
+
 ## Hardware
 Currently an old Hitachi BW CCD Highspeed shutter camera, which is typically used in sorting maschines and industrial applications, for the camera part. Since i only got an analog signal, I use a cheap capture card to gather the footage.
