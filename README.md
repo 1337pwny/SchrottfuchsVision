@@ -14,8 +14,11 @@ Now its time to add multithreading so it will hopefully run fast anough to use a
 
 ## What you need 
 You'll need to install `python3`, `numpy`, `imlib`, `imutils` and `opencv`.
+
 This can be done by running:
-`pip3 install -r requirements.txt`
+```
+pip3 install -r requirements.txt
+```
 
 ## Running
 Basically you just need to put your assets (a `.jpg` of a streetsign, a `.jpg` of the shape of the sign and an `.mp4` video of the driving) into the asset folder and configure the paths in `main.py`
