@@ -1,0 +1,4 @@
+numpy>=1.19.2
+imlib>=0.0.27
+opencv-python>=4.4.0.44
+imutils>=0.5.3
