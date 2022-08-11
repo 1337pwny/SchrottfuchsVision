@@ -1,4 +1,7 @@
 import cv2
+import time
+secondsSinceEpoch = time.time()
+print(str(secondsSinceEpoch)+'cam1.avi')
 cam = cv2.VideoCapture(0)
 cam2 = cv2.VideoCapture(2)
 frame_width = int(cam.get(3))
@@ -8,9 +11,6 @@ frame_height2 = int(cam2.get(4))
 cam.set(14,-8.1)
 cam.set(10,-8.1)
 cam.set(15,-8.1)
-from datetime import datetime
-import time
-secondsSinceEpoch = time.time()
 out1 = cv2.VideoWriter(str(secondsSinceEpoch)+'cam1.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 10, (frame_width, frame_height))
 out2 = cv2.VideoWriter(str(secondsSinceEpoch)+'cam2.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 10, (frame_width2, frame_height2))
 while True:
