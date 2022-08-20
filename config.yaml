@@ -1,0 +1,58 @@
+uiElements:
+  -
+    - "lane_ready"
+    - "ui/images/lane_empty.png"
+    - "Ready!"
+    - "None"
+  -
+    - "lane_ok"
+    - "ui/images/lane_left_right_ok.png"
+    - "All OK!"
+    - "None"
+  -
+    - "lane_rightFail"
+    - "ui/images/lane_left_ok.png"
+    - "Right Fail!"
+    - "None"
+  -
+    - "sign_failed"
+    - "ui/images/sign_failed.png"
+    - "No Sign"
+    - "None"
+  -
+    - "sign_30"
+    - "ui/images/30.png"
+    - "30 KM/h"
+    - "None"
+  -
+    - "sign_50"
+    - "ui/images/50.png"
+    - "50 KM/h"
+    - "None"
+  -
+    - "sign_noOvertaking"
+    - "ui/images/no_overtake.png"
+    - "No Overtaking!"
+    - "None"
+  -
+    - "distance_no"
+    - "ui/images/distance_no.png"
+    - "Nothing there"
+    - "None"
+  -
+    - "distance_ok"
+    - "ui/images/distance_ok.png"
+    - "OK"
+    - "None"
+  -
+    - "distance_toClose"
+    - "ui/images/distance_to_close.png"
+    - "To close!!!"
+    - "None"
+Camera:
+  resX: "128"
+  resY: "64"
+  camLaneAssist: 0
+  camSignRecon: 1
+System:
+  audio: "true"

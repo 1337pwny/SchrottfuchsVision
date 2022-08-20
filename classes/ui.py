@@ -1,89 +1,59 @@
 import tkinter as tk
 from PIL import ImageTk, Image
+import playsound
 
-#globalWidht = 160
-#globalHeight = 160
 class UIClass:
-    def __init__(self, width, height):
+    def playAudio(self, filename):
+        if self.variables.audio == "true":
+            playsound.playsound(filename)
+
+    def __init__(self, width, height, variables):
         self.globalWidht = width
         self.globalHeight = height
-        self.laneAssistState = "1"
-        self.SignAssistState = "2"
-        self.additionalSignAssistState = "2"
-        self.distanceAssistState = "1"
-
-        self.laneStateDict = {
-            "1": "Ready!",
-            "2": "All OK!",
-            "3": "Right Fail!"
-        }
-        self.laneImageDict = {
-            "1": "ui/images/lane_empty.png",
-            "2": "ui/images/lane_left_right_ok.png",
-            "3": "ui/images/lane_left_ok.png"
-        }
-
-        self.signStateDict = {
-            "1": "No Sign",
-            "2": "30 KM/h",
-            "3": "50 KM/h"
-        }
-        self.signImageDict = {
-            "1": "ui/images/sign_failed.png",
-            "2": "ui/images/30.png",
-            "3": "ui/images/50.png"
-        }
-
-        self.additionalSignStateDict = {
-            "1": "No Sign",
-            "2": "No Overtaking!",
-        }
-        self.additionalSignImageDict = {
-            "1": "ui/images/sign_failed.png",
-            "2": "ui/images/no_overtake.png",
-        }
-
-        self.distanceStateDict = {
-            "1": "Nothing there",
-            "2": "OK",
-            "3": "NOT OK",
-        }
-        self.distanceImageDict = {
-            "1": "ui/images/distance_no.png",
-            "2": "ui/images/distance_ok.png",
-            "3": "ui/images/distance_to_close.png",
-        }
+        self.laneAssistState = "lane_ready"
+        self.SignAssistState = "sign_failed"
+        self.additionalSignAssistState = "sign_failed"
+        self.distanceAssistState = "distance_ok"
+        self.variables = variables
 
         self.window = tk.Tk()
         self.infoLabel = tk.Label(bg="black", fg="red", width=int(self.globalWidht / 7), text="Schrottfuchs-vision 1.0")
         self.infoLabel.pack()
 
+        image = self.variables.getUiElementByName(self.laneAssistState).elementImage
+        text = self.variables.getUiElementByName(self.laneAssistState).elementText
         self.laneCanvas = tk.Canvas(width=self.globalWidht, height=self.globalHeight, bg="black")
         self.laneCanvas.pack()
-        self.imgLane = ImageTk.PhotoImage(Image.open(self.laneImageDict[self.laneAssistState]))
+        self.imgLane = ImageTk.PhotoImage(Image.open(image))
         self.laneCanvas.create_image(self.globalWidht / 2, self.globalHeight / 2, anchor=tk.CENTER, image=self.imgLane)
-        self.laneLabel = tk.Label(bg="black", fg="red", width=int(self.globalWidht / 7), text=self.laneStateDict[self.laneAssistState])
+        self.laneLabel = tk.Label(bg="black", fg="red", width=int(self.globalWidht / 7), text=text)
         self.laneLabel.pack()
 
+        image = self.variables.getUiElementByName(self.SignAssistState).elementImage
+        text = self.variables.getUiElementByName( self.SignAssistState).elementText
         self.signCanvas = tk.Canvas(width=self.globalWidht, height=self.globalHeight, bg="black")
         self.signCanvas.pack()
-        self.imgSign = ImageTk.PhotoImage(Image.open(self.signImageDict[self.SignAssistState]))
+        self.imgSign = ImageTk.PhotoImage(Image.open(image))
         self.signCanvas.create_image(self.globalWidht / 2, self.globalHeight / 2, anchor=tk.CENTER, image=self.imgSign)
-        self.signLabel = tk.Label(bg="black", fg="red", width=int(self.globalWidht / 7), text=self.signStateDict[self.SignAssistState])
+        self.signLabel = tk.Label(bg="black", fg="red", width=int(self.globalWidht / 7), text=text)
         self.signLabel.pack()
 
+        image = self.variables.getUiElementByName(self.additionalSignAssistState).elementImage
+        text = self.variables.getUiElementByName(self.additionalSignAssistState).elementText
         self.additionalSignCanvas = tk.Canvas(width=self.globalWidht, height=self.globalHeight, bg="black")
         self.additionalSignCanvas.pack()
-        self.imgAdditionalSign = ImageTk.PhotoImage(Image.open(self.additionalSignImageDict[self.additionalSignAssistState]))
+        self.imgAdditionalSign = ImageTk.PhotoImage(Image.open(image))
         self.additionalSignCanvas.create_image(self.globalWidht / 2, self.globalHeight / 2, anchor=tk.CENTER, image=self.imgAdditionalSign)
-        self.additionalSignLabel = tk.Label(bg="black", fg="red", width=int(self.globalWidht / 7), text=self.additionalSignStateDict[self.additionalSignAssistState])
+        self.additionalSignLabel = tk.Label(bg="black", fg="red", width=int(self.globalWidht / 7), text=text)
         self.additionalSignLabel.pack()
 
+        image = self.variables.getUiElementByName(self.distanceAssistState).elementImage
+        text = self.variables.getUiElementByName(self.distanceAssistState).elementText
         self.distanceCanvas = tk.Canvas(width=self.globalWidht, height=self.globalHeight, bg="black")
         self.distanceCanvas.pack()
-        self.imgDistance = ImageTk.PhotoImage(Image.open(self.distanceImageDict[self.distanceAssistState]))
+        self.imgDistance = ImageTk.PhotoImage(Image.open(image))
         self.distanceCanvas.create_image(self.globalWidht / 2, self.globalHeight / 2, anchor=tk.CENTER, image=self.imgDistance)
-        self.distanceLabel = tk.Label(bg="black", fg="red", width=int(self.globalWidht / 7), text=self.distanceStateDict[self.distanceAssistState])
+        self.distanceLabel = tk.Label(bg="black", fg="red", width=int(self.globalWidht / 7), text=text)
         self.distanceLabel.pack()
 
         self.window.update_idletasks()
@@ -91,32 +61,40 @@ class UIClass:
 
     def updateLaneState(self, laneState):
         self.laneAssistState = laneState
-        self.imgLane = ImageTk.PhotoImage(Image.open(self.laneImageDict[self.laneAssistState]))
+        image = self.variables.getUiElementByName(self.laneAssistState).elementImage
+        text = self.variables.getUiElementByName(self.laneAssistState).elementText
+        self.imgLane = ImageTk.PhotoImage(Image.open(image))
         self.laneCanvas.create_image(self.globalWidht / 2, self.globalHeight / 2, anchor=tk.CENTER, image=self.imgLane)
-        self.laneLabel['text'] = self.laneStateDict[self.laneAssistState]
+        self.laneLabel['text'] = text
         self.window.update_idletasks()
         self.window.update()
 
     def updateSignState(self, SignState):
         self.SignAssistState = SignState
-        self.imgSign = ImageTk.PhotoImage(Image.open(self.signImageDict[self.SignAssistState]))
+        image = self.variables.getUiElementByName(self.SignAssistState).elementImage
+        text = self.variables.getUiElementByName( self.SignAssistState).elementText
+        self.imgSign = ImageTk.PhotoImage(Image.open(image))
         self.signCanvas.create_image(self.globalWidht / 2, self.globalHeight / 2, anchor=tk.CENTER, image=self.imgSign)
-        self.signLabel['text'] = self.signStateDict[self.SignAssistState]
+        self.signLabel['text'] = text
         self.window.update_idletasks()
         self.window.update()
 
     def updateAdditionalSignState(self, SignState):
         self.additionalSignAssistState = SignState
-        self.imgAdditionalSign = ImageTk.PhotoImage(Image.open(self.additionalSignImageDict[self.additionalSignAssistState]))
+        image = self.variables.getUiElementByName(self.additionalSignAssistState).elementImage
+        text = self.variables.getUiElementByName(self.additionalSignAssistState).elementText
+        self.imgAdditionalSign = ImageTk.PhotoImage(Image.open(image))
         self.additionalSignCanvas.create_image(self.globalWidht / 2, self.globalHeight / 2, anchor=tk.CENTER, image=self.imgAdditionalSign)
-        self.additionalSignLabel['text'] = self.additionalSignStateDict[self.additionalSignAssistState]
+        self.additionalSignLabel['text'] = text
         self.window.update_idletasks()
         self.window.update()
 
     def updateDistanceState(self, DistanceState):
         self.distanceAssistState = DistanceState
-        self.imgDistance = ImageTk.PhotoImage(Image.open(self.distanceImageDict[self.distanceAssistState]))
+        image = self.variables.getUiElementByName(self.distanceAssistState).elementImage
+        text = self.variables.getUiElementByName(self.distanceAssistState).elementText
+        self.imgDistance = ImageTk.PhotoImage(Image.open(image))
         self.distanceCanvas.create_image(self.globalWidht / 2, self.globalHeight / 2, anchor=tk.CENTER, image=self.imgDistance)
-        self.distanceLabel['text'] = self.distanceStateDict[self.distanceAssistState]
+        self.distanceLabel['text'] = text
         self.window.update_idletasks()
         self.window.update()
