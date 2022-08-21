@@ -10,25 +10,35 @@ uiElements:
     - "All OK!"
     - "None"
   -
+    - "lane_fail"
+    - "ui/images/lane_failed.png"
+    - "Error!"
+    - "ui/sounds/lane_no.mp3"
+  -
     - "lane_rightFail"
     - "ui/images/lane_left_ok.png"
     - "Right Fail!"
-    - "None"
+    - "ui/sounds/lane_over.mp3"
   -
     - "sign_failed"
     - "ui/images/sign_failed.png"
     - "No Sign"
     - "None"
   -
+    - "sign_overspeed"
+    - "ui/images/sign_overspeed.png"
+    - "Overspeed"
+    - "ui/sounds/to_fast.mp3"
+  -
     - "sign_30"
     - "ui/images/30.png"
     - "30 KM/h"
-    - "None"
+    - "ui/sounds/30.mp3"
   -
     - "sign_50"
     - "ui/images/50.png"
     - "50 KM/h"
-    - "None"
+    - "ui/sounds/50.mp3"
   -
     - "sign_noOvertaking"
     - "ui/images/no_overtake.png"
@@ -43,16 +53,42 @@ uiElements:
     - "distance_ok"
     - "ui/images/distance_ok.png"
     - "OK"
-    - "None"
+    - "ui/sounds/distance_clear.mp3"
   -
     - "distance_toClose"
     - "ui/images/distance_to_close.png"
     - "To close!!!"
-    - "None"
+    - "ui/sounds/distance_notOK.mp3"
 Camera:
   resX: "128"
   resY: "64"
   camLaneAssist: 0
   camSignRecon: 1
+  camSingle: 1
+  laneCamCropXStart: 110
+  laneCamCropYStart: 250
+  laneCamCropXStop: 500
+  laneCamCropYStop: 400
+  signCamCropXStart: 255
+  signCamCropYStart: 0
+  signCamCropXStop: 550
+  signCamCropYStop: 255
 System:
   audio: "true"
+  filebaseMode: "true"
+  videoFileLaneCam: "/demo/demo.avi"
+  videoFileSignCam: "/demo/demo.avi"
+  videoFileSigleCam: "media/camVids/lane_1.mp4"
+  useSingleCam: "true"
+LaneAssist:
+  rightTreshold: 600
+  leftTreshold: 100
+signPatterns:
+  -
+    - "sign_50"
+    - "signPatterns/50.png"
+    - limit: "50"
+  -
+    - "sign_noOvertaking"
+    - "signPatterns/no_overtake.png"
+    - limit: "None"
