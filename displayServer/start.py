@@ -1,7 +1,8 @@
 from displayUI import DisplayUI
 from displayUI import UIElement
-import time
+from http.server import HTTPServer, BaseHTTPRequestHandler
 import playsound
+print(__name__)
 
 
 def playAudio(self, filename):
@@ -23,14 +24,28 @@ uiElements.append(UIElement("sign1",690,311,145,120,imageFile="../ui/images/sign
 uiElements.append(UIElement("sign2",845,311,145,120,imageFile="../ui/images/30.png",textContent="30 kmH",contentType="graph"))
 
 uiElements.append(UIElement("nav",10,156,645,400,imageFile="../ui/images/nav.jpg",textContent="NAV View",contentType="graph"))
-#Canvas is 20 px highr
-#uiElements.append(UIElement("speed",150,0,120,120,textContent="Speed",contentType="gauge"))
+
 
 ui = DisplayUI(uiElements)
 
-time.sleep(5)
 
-ui.updateUIElementGraph("lane", "../ui/images/lane_empty.png","AAAH")
+def some_function():
+    print("some_function got called")
+    ui.updateUIElementGraph("lane", "../ui/images/lane_empty.png", "AAAH")
+
+
+class MyHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        print(self.path)
+
+        self.send_response(200)
+
+httpd = HTTPServer(('localhost', 5000), MyHandler)
+httpd.serve_forever()
+
+#time.sleep(5)
+
+#ui.updateUIElementGraph("lane", "../ui/images/lane_empty.png","AAAH")
 #ui.updateUIElementGauge("distance",20)
 
-time.sleep(5)
+#time.sleep(5)
