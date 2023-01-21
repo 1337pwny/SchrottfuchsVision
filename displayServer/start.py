@@ -33,10 +33,23 @@ def some_function():
     print("some_function got called")
     ui.updateUIElementGraph("lane", "../ui/images/lane_empty.png", "AAAH")
 
+def handleDistanceChange(value):
+    valueFloat = float(value)
+    if valueFloat > 1:
+        ui.updateUIElementGraph("distance", "../ui/images/distance_ok.png", value+"M")
+    else:
+        ui.updateUIElementGraph("distance", "../ui/images/distance_to_close.png", value + "M")
+
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         print(self.path)
+        if "graph" in self.path:
+            params=self.path.split('?')[1]
+            name=params.split(',')[0].split('=')[1]
+            value = params.split(',')[1].split('=')[1]
+            if name == "distance":
+                handleDistanceChange(value)
 
         self.send_response(200)
 

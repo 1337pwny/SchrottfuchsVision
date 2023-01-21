@@ -1,5 +1,4 @@
 import tkinter as tk
-import tk_tools
 from tkdial import Meter
 from PIL import ImageTk, Image
 
@@ -96,7 +95,7 @@ class DisplayUI:
         self.window.geometry("1024x600")
 
         # Make it borderless
-        self.window.overrideredirect(True)
+        #self.window.overrideredirect(True)
         self.window.configure(background='black')
 
         self.createUIElements()
