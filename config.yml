@@ -6,3 +6,7 @@ HardwareOptions:
   laneCam: "/dev/video0"
   signCam: "/dev/video2"
   obdDev: "/dev/ttyUSB4"
+Thresholds:
+  distanceTresholdSlow: 1.0
+  distanceThresholdFast: 10.0
+  distanceSlowThreshold: 50

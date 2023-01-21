@@ -1,15 +1,16 @@
-from displayUI import DisplayUI
-from displayUI import UIElement
+from modules.displayServer.displayUI import DisplayUI
+from modules.displayServer.displayUI import UIElement
 from http.server import HTTPServer, BaseHTTPRequestHandler
+from modules.configLoader.configLoader import ConfigLoader
 import playsound
-print(__name__)
 
-
-def playAudio(self, filename):
-    if self.variables.audio == "true" and filename != "None":
-        print("playing Sound")
-        playsound.playsound(filename)
-
+class GlobalVars:
+    def __init__(self):
+        self.distance = 0
+        self.speed = 0
+################ Internal states
+globalVars = GlobalVars()
+############# Initialize UI #########################################
 
 uiElements=[]
 uiElements.append(UIElement("speed",10,0,145,120,textContent="Speed",contentType="gauge", maxVal=10))
@@ -27,15 +28,23 @@ uiElements.append(UIElement("nav",10,156,645,400,imageFile="ui/images/nav.jpg",t
 
 
 ui = DisplayUI(uiElements)
+config = ConfigLoader()
+########## UI Funcztions #############################################
+def playAudio(self, filename):
+    if self.variables.audio == "true" and filename != "None":
+        print("playing Sound")
+        playsound.playsound(filename)
 
-
-def some_function():
-    print("some_function got called")
-    ui.updateUIElementGraph("lane", "ui/images/lane_empty.png", "AAAH")
-
+################## UI Business Logic ###################################
 def handleDistanceChange(value):
-    valueFloat = float(value)
-    if valueFloat > 1:
+    globalVars.distance = float(value)
+    if globalVars.speed > config.distanceSlowThreshold:
+        threshold = config.distanceThresholdFast
+
+    else:
+        threshold = config.distanceTresholdSlow
+    print(threshold)
+    if globalVars.distance > threshold:
         ui.updateUIElementGraph("distance", "ui/images/distance_ok.png", value+"M")
     else:
         ui.updateUIElementGraph("distance", "ui/images/distance_to_close.png", value + "M")
@@ -43,7 +52,6 @@ def handleDistanceChange(value):
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        print(self.path)
         if "graph" in self.path:
             params=self.path.split('?')[1]
             name=params.split(',')[0].split('=')[1]

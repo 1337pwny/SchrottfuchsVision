@@ -1,4 +1,5 @@
 from modules.configLoader.configLoader import ConfigLoader
+from time import sleep
 import os
 
 config = ConfigLoader()
@@ -10,4 +11,8 @@ for module in config.modules:
             if  module in file:
                 filepath = os.path.join(root, file)
                 print("starting: "+os.path.join(root, file))
-                os.system("python3 "+filepath)
+                os.system("python3 "+filepath+" &")
+
+while True:
+    print("TEST")
+    sleep(100)
