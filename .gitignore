@@ -1,5 +1,8 @@
 .idea
+venv/
+venv2/
 assets/
+displayServer/__pycache__/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

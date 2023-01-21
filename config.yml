@@ -1,0 +1,8 @@
+Modules:
+  - TFminiPlus
+  - UIServer
+HardwareOptions:
+  distanceDev:  "/dev/ttyUSB3"
+  laneCam: "/dev/video0"
+  signCam: "/dev/video2"
+  obdDev: "/dev/ttyUSB4"
